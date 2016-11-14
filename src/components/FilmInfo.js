@@ -1,39 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
+import withState from 'recompose/withState';
+import compose from 'recompose/compose';
 
 import { getById } from '../api/omdb';
-import logo from '../logo.svg';
 import windowWidth from '../helpers/windowWidth';
+import Loading from '../helpers/Loading';
 
-class FilmInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      item: null,
-      loading: false,
-    }
-  }
-
+class FilmInfo extends Loading {
   componentWillReceiveProps(nextProps) {
-    const { windowWidth, itemId } = nextProps;
+    const { windowWidth, itemId, handleLoading, handleItem } = nextProps;
+
     if (itemId && this.props.itemId !== itemId) {
-      this.setState({ loading: true });
+      handleLoading(true);
       const plotSize = windowWidth > 768 ? 'full' : 'short';
 
       getById(itemId, plotSize).then((result) => {
         if (result.Error) return;
-        this.setState({
-          item: result,
-          loading: false,
-        });
+        handleLoading(false);
+        handleItem(result);
       });
     }
   }
 
-  render() {
-    const { item, loading } = this.state;
-    if (loading) {
-      return <img src={logo} className="App-logo" alt="logo" />
-    }
+  isLoading = () => {
+    return this.props.loading;
+  }
+
+  renderContent() {
+    const { item } = this.props;
+
     if (!item) {
       return null;
     }
@@ -52,4 +47,10 @@ class FilmInfo extends Component {
   }
 }
 
-export default windowWidth(FilmInfo);
+const withStateLoading = withState('loading', 'handleLoading', false);
+const withStateItem = withState('item', 'handleItem', null);
+export default compose(
+  windowWidth,
+  withStateLoading,
+  withStateItem
+)(FilmInfo);
