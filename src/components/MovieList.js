@@ -1,9 +1,11 @@
 import React from 'react';
 import withState from 'recompose/withState';
+import compose from 'recompose/compose';
 
 import '../App.css';
 import ListItem from './ListItem';
 import windowWidth from '../helpers/windowWidth';
+import showIf from '../helpers/showIf';
 
 const MovieList = (props) => {
   const { movies, windowWidth, currentMovie, changeCurrentMovie, onSelect } = props;
@@ -11,10 +13,6 @@ const MovieList = (props) => {
   const handleActive = (currentMovie) => {
     changeCurrentMovie(currentMovie);
     onSelect(currentMovie);
-  }
-
-  if (!movies.length) {
-    return null;
   }
 
   return (
@@ -37,4 +35,9 @@ const MovieList = (props) => {
   );
 }
 
-export default withState('currentMovie', 'changeCurrentMovie', null)(windowWidth(MovieList));
+const showIfPredicate = (props) => props.movies && props.movies.length;
+export default compose(
+  showIf(showIfPredicate),
+  withState('currentMovie', 'changeCurrentMovie', null),
+  windowWidth
+)(MovieList);
