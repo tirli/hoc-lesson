@@ -2,41 +2,24 @@ import React, { Component } from 'react';
 
 import { getById } from '../api/omdb';
 import logo from '../logo.svg';
+import windowWidth from '../helpers/windowWidth';
 
-export default class FilmInfo extends Component {
+class FilmInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       item: null,
       loading: false,
-      windowWidth: 0,
     }
   }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  handleResize = () => {
-    if (this.statewindowWidth !== document.body.clientWidth) {
-      this.setState({
-        windowWidth: document.body.clientWidth,
-      });
-    }
-  };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.itemId && this.props.itemId !== nextProps.itemId) {
+    const { windowWidth, itemId } = nextProps;
+    if (itemId && this.props.itemId !== itemId) {
       this.setState({ loading: true });
-      const { windowWidth } = this.state;
       const plotSize = windowWidth > 768 ? 'full' : 'short';
 
-      getById(nextProps.itemId, plotSize).then((result) => {
+      getById(itemId, plotSize).then((result) => {
         if (result.Error) return;
         this.setState({
           item: result,
@@ -68,3 +51,5 @@ export default class FilmInfo extends Component {
     );
   }
 }
+
+export default windowWidth(FilmInfo);
