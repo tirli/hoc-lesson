@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import withState from 'recompose/withState';
 import compose from 'recompose/compose';
 
 import { getById } from '../api/omdb';
 import windowWidth from '../helpers/windowWidth';
-import Loading from '../helpers/Loading';
+import loading from '../helpers/loading';
 
-class FilmInfo extends Loading {
+class FilmInfo extends Component {
   componentWillReceiveProps(nextProps) {
     const { windowWidth, itemId, handleLoading, handleItem } = nextProps;
 
@@ -22,11 +22,7 @@ class FilmInfo extends Loading {
     }
   }
 
-  isLoading = () => {
-    return this.props.loading;
-  }
-
-  renderContent() {
+  render() {
     const { item } = this.props;
 
     if (!item) {
@@ -49,8 +45,10 @@ class FilmInfo extends Loading {
 
 const withStateLoading = withState('loading', 'handleLoading', false);
 const withStateItem = withState('item', 'handleItem', null);
+const loadingPredicate = (props) => props.loading;
 export default compose(
   windowWidth,
   withStateLoading,
-  withStateItem
+  withStateItem,
+  loading(loadingPredicate),
 )(FilmInfo);
