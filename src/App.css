@@ -26,6 +26,7 @@
 .listItemContainer {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .posterWrapper, .poster {
@@ -35,6 +36,19 @@
 
 .listItemContainer {
   border: 1px solid black;
+}
+
+.listItemContainer.active {
+  background-color: rgba(200, 9, 209, 0.3);
+}
+
+.movieListHeader {
+  height: 40px;
+  font-size: 18px;
+  color: purple;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .content {

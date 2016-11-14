@@ -10,7 +10,7 @@ export function search(title) {
   ;
 }
 
-export function getById(id) {
-  return fetch(`${baseUrl}i=${id}&r=json`)
+export function getById(id, plotType = 'short') {
+  return fetch(`${baseUrl}i=${id}&r=json&plot=${plotType}`)
     .then((res) => res.json());
 };

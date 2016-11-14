@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { getById } from '../api/omdb';
+import logo from '../logo.svg';
 
 export default class FilmInfo extends Component {
   constructor(props) {
@@ -8,33 +9,60 @@ export default class FilmInfo extends Component {
     this.state = {
       item: null,
       loading: false,
+      windowWidth: 0,
     }
   }
-  componentWillReceiveProps(nextProps) {
-    this.setState({ loading: true });
 
-    getById(nextProps.itemId).then((result) => this.setState({
-      item: result,
-      loading: false,
-    }));
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    if (this.statewindowWidth !== document.body.clientWidth) {
+      this.setState({
+        windowWidth: document.body.clientWidth,
+      });
+    }
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.itemId && this.props.itemId !== nextProps.itemId) {
+      this.setState({ loading: true });
+      const { windowWidth } = this.state;
+      const plotSize = windowWidth > 768 ? 'full' : 'short';
+
+      getById(nextProps.itemId, plotSize).then((result) => {
+        if (result.Error) return;
+        this.setState({
+          item: result,
+          loading: false,
+        });
+      });
+    }
   }
 
   render() {
     const { item, loading } = this.state;
     if (loading) {
-      return <div className="spinner"> ... Loading </div>
+      return <img src={logo} className="App-logo" alt="logo" />
     }
     if (!item) {
-      return <div> Please select any film </div>
+      return null;
     }
 
     return (
       <div>
-        <img src={item.Poster}  />
+        <img src={item.Poster} alt={item.Title} />
         <div>
           <h1> {item.Title} </h1>
-          <span> {item.Actors} </span>
-          <span> {item.Genre} </span>
+          <p> Actors: {item.Actors} </p>
+          <p> Genres: {item.Genre} </p>
+          <p> {item.Plot} </p>
         </div>
       </div>
     );

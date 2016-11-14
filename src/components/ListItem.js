@@ -11,15 +11,17 @@ export default class ListItem extends Component {
       },
     });
   }
-  handleDetailsClick = () => {
-    this.props.onGetDetailsPressed(this.props.item.imdbID);
+
+  setActive = () => {
+    this.props.handleActive(this.props.item.imdbID);
   }
+
   render() {
-    const { item, onGetDetailsPressed } = this.props;
+    const { item, active } = this.props;
 
     return (
-      <div className="listItemContainer" >
-        <div className="posterWrapper" >
+      <div className={`${active ? 'active ' : '' }listItemContainer`} >
+        <div className="posterWrapper">
           { item.Poster
             ? <img
                 ref={this.createPosterLightBox}
@@ -30,12 +32,11 @@ export default class ListItem extends Component {
             : null}
         </div>
         <div className="contentWrapper" >
-          <span className="content" > {item.Title} </span>
-          <span className="content" > {item.Year} </span>
+          <span className="content"> {item.Title} </span>
+          <span className="content"> {item.Year} </span>
         </div>
-        <button onClick={this.handleDetailsClick} > >>> </button>
+        <button onClick={this.setActive}> select </button>
       </div>
     );
   }
 }
- 
