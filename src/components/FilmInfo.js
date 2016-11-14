@@ -5,6 +5,7 @@ import compose from 'recompose/compose';
 import { getById } from '../api/omdb';
 import windowWidth from '../helpers/windowWidth';
 import loading from '../helpers/loading';
+import perfomanceTest from '../helpers/perfomanceTest';
 
 class FilmInfo extends Component {
   componentWillReceiveProps(nextProps) {
@@ -51,4 +52,5 @@ export default compose(
   withStateLoading,
   withStateItem,
   loading(loadingPredicate),
+  perfomanceTest,
 )(FilmInfo);
