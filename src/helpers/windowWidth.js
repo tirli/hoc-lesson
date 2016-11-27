@@ -19,7 +19,7 @@ export default function(MyComponent) {
     }
 
     handleResize = () => {
-      if (this.statewindowWidth !== document.body.clientWidth) {
+      if (this.state.windowWidth !== document.body.clientWidth) {
         this.setState({
           windowWidth: document.body.clientWidth,
         });

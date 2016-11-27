@@ -24,12 +24,12 @@ const MovieList = (props) => {
         }
       </div>
       { movies.map((file) =>
-        <ListItem
-          key={file.imdbID}
-          item={file}
-          active={currentMovie === file.imdbID}
-          handleActive={handleActive}
-        />
+          <ListItem
+            key={file.imdbID}
+            item={file}
+            active={currentMovie === file.imdbID}
+            handleActive={handleActive}
+          />
       )}
     </div>
   );

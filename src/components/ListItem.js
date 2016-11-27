@@ -3,15 +3,6 @@ import React, { Component } from 'react';
 import '../App.css';
 
 export default class ListItem extends Component {
-  createPosterLightBox = (element) => {
-    $(element).magnificPopup({
-      type: 'image',
-      items: {
-        src: this.props.item.Poster,
-      },
-    });
-  }
-
   setActive = () => {
     this.props.handleActive(this.props.item.imdbID);
   }

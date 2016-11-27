@@ -12,5 +12,9 @@ export function search(title) {
 
 export function getById(id, plotType = 'short') {
   return fetch(`${baseUrl}i=${id}&r=json&plot=${plotType}`)
-    .then((res) => res.json());
+    .then((res) => res.json())
+    .then(result => {
+      if (result.Error) throw new Error(result.Error);
+      return result;
+    })
 };

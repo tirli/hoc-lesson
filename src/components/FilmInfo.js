@@ -15,11 +15,15 @@ class FilmInfo extends Component {
       handleLoading(true);
       const plotSize = windowWidth > 768 ? 'full' : 'short';
 
-      getById(itemId, plotSize).then((result) => {
-        if (result.Error) return;
-        handleLoading(false);
-        handleItem(result);
-      });
+      getById(itemId, plotSize)
+        .then((result) => {
+          handleLoading(false);
+          handleItem(result);
+        })
+        .catch(e => {
+          handleLoading(false);
+        })
+      ;
     }
   }
 
