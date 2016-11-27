@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from '../../logo.svg';
 import './App.css';
 
-import { search } from './api/omdb';
+import { search } from '../../api/omdb';
 
-import MovieList from './components/MovieList';
-import SearchField from './components/SearchField';
-import FilmInfo from './components/FilmInfo';
+import MovieList from '../MovieList/MovieList';
+import SearchField from '../SearchField/SearchField';
+import FilmInfo from '../FilmInfo/FilmInfo';
 
 class App extends Component {
   constructor(props) {

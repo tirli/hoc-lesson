@@ -2,10 +2,9 @@ import React from 'react';
 import withState from 'recompose/withState';
 import compose from 'recompose/compose';
 
-import '../App.css';
-import ListItem from './ListItem';
-import windowWidth from '../helpers/windowWidth';
-import showIf from '../helpers/showIf';
+import ListItem from '../ListItem/ListItem';
+import windowWidth from '../../helpers/windowWidth';
+import showIf from '../../helpers/showIf';
 
 const MovieList = (props) => {
   const { movies, windowWidth, currentMovie, changeCurrentMovie, onSelect } = props;

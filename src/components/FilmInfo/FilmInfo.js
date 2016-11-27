@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import withState from 'recompose/withState';
 import compose from 'recompose/compose';
 
-import { getById } from '../api/omdb';
-import windowWidth from '../helpers/windowWidth';
-import loading from '../helpers/loading';
-import perfomanceTest from '../helpers/perfomanceTest';
+import { getById } from '../../api/omdb';
+import windowWidth from '../../helpers/windowWidth';
+import loading from '../../helpers/loading';
+import perfomanceTest from '../../helpers/perfomanceTest';
 
 class FilmInfo extends Component {
   componentWillReceiveProps(nextProps) {
