@@ -13,7 +13,7 @@ export default  class Search extends Component {
       value: event.target.value,
     });
   }
-  
+
   onSearch = (event) => {
     event.preventDefault();
     this.props.onSearch(this.state.value);
@@ -24,9 +24,9 @@ export default  class Search extends Component {
 
     return (
       <form>
-        <input value={value} onChange={this.onInputChange} name="search" />
-        <button onClick={this.onSearch} > Search </button>
+        <input value={value} onChange={this.onInputChange} name="search" className="test-input" />
+        <button onClick={this.onSearch} className="test-search-btn"> Search </button>
       </form>
     );
   }
-} 
+}

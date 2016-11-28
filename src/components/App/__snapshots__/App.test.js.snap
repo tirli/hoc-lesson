@@ -1,0 +1,1 @@
+exports[`App shallow renders as expected 1`] = `"<div class=\"App\"><div class=\"App-header\"><img src=\"test-file-stub\" class=\"App-logo\" alt=\"logo\"/><form><input value=\"\" name=\"search\" class=\"test-input\"/><button class=\"test-search-btn\"> Search </button></form></div></div>"`;

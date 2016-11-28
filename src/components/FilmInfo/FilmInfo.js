@@ -7,7 +7,7 @@ import windowWidth from '../../helpers/windowWidth';
 import loading from '../../helpers/loading';
 import perfomanceTest from '../../helpers/perfomanceTest';
 
-class FilmInfo extends Component {
+export class FilmInfo extends Component {
   componentWillReceiveProps(nextProps) {
     const { windowWidth, itemId, handleLoading, handleItem } = nextProps;
 
@@ -15,7 +15,7 @@ class FilmInfo extends Component {
       handleLoading(true);
       const plotSize = windowWidth > 768 ? 'full' : 'short';
 
-      getById(itemId, plotSize)
+      return getById(itemId, plotSize)
         .then((result) => {
           handleLoading(false);
           handleItem(result);

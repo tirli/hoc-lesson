@@ -1,0 +1,1 @@
+exports[`SearchField shallow renders as expected 1`] = `"<form><input value=\"\" name=\"search\" class=\"test-input\"/><button class=\"test-search-btn\"> Search </button></form>"`;

@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "enzyme": "^2.6.0",
+    "react-addons-test-utils": "^15.4.1",
     "react-scripts": "0.7.0"
   },
   "dependencies": {
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
     "recompose": "^0.20.2"
   },
   "scripts": {

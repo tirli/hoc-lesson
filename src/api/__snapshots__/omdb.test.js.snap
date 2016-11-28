@@ -1,0 +1,18 @@
+exports[`OMDB api search transforms data to correct form 1`] = `
+Array [
+  Object {
+    "Poster": "https://images-na.ssl-images-amazon.com/images/M/MV5BMjMzMDQwMzM2M15BMl5BanBnXkFtZTcwMzA1OTg1OQ@@._V1_SX300.jpg",
+    "Title": "The Test",
+    "Type": "movie",
+    "Year": "2013",
+    "imdbID": "tt2616114",
+  },
+  Object {
+    "Poster": null,
+    "Title": "Sound Test for Blackmail",
+    "Type": "movie",
+    "Year": "1929",
+    "imdbID": "tt0249159",
+  },
+]
+`;
