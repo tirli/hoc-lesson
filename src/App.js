@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import logo from './logo.svg';
 import './App.css';
 
-import { search } from './api/omdb';
 
 import MovieList from './components/MovieList';
 import SearchField from './components/SearchField';
 import FilmInfo from './components/FilmInfo';
+import { load } from './redux/modules/movies';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
       movieId: null,
     };
   }
 
   onSearch = (value) => {
-    search(value).then((result) => this.setState({ items: result }));
+    this.props.getMovies(value);
   }
 
   handleSelectedMovie = (id) => {
@@ -26,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    const { items, movieId } = this.state;
+    const { movieId } = this.state;
 
     return (
       <div className="App">
@@ -34,11 +35,14 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <SearchField onSearch={this.onSearch} />
         </div>
-        <MovieList movies={items} onSelect={this.handleSelectedMovie}/>
+        <MovieList onSelect={this.handleSelectedMovie}/>
         <FilmInfo itemId={movieId} />
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+  () => ({}),
+  { getMovies: load }
+)(App);

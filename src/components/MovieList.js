@@ -1,6 +1,7 @@
 import React from 'react';
 import withState from 'recompose/withState';
 import compose from 'recompose/compose';
+import { connect } from 'react-redux';
 
 import '../App.css';
 import ListItem from './ListItem';
@@ -37,6 +38,9 @@ const MovieList = (props) => {
 
 const showIfPredicate = (props) => props.movies && props.movies.length;
 export default compose(
+  connect(
+    ({ movies }) => ({ movies: movies.entities })
+  ),
   showIf(showIfPredicate),
   withState('currentMovie', 'changeCurrentMovie', null),
   windowWidth

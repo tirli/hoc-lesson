@@ -1,60 +1,53 @@
 import React, { Component } from 'react';
-import withState from 'recompose/withState';
 import compose from 'recompose/compose';
+import { connect } from 'react-redux';
 
-import { getById } from '../api/omdb';
 import windowWidth from '../helpers/windowWidth';
 import loading from '../helpers/loading';
 import perfomanceTest from '../helpers/perfomanceTest';
+import { load } from '../redux/modules/currentMovie';
 
 class FilmInfo extends Component {
   componentWillReceiveProps(nextProps) {
-    const { windowWidth, itemId, handleLoading, handleItem } = nextProps;
+    const { windowWidth, itemId, getMovie } = nextProps;
 
     if (itemId && this.props.itemId !== itemId) {
-      handleLoading(true);
       const plotSize = windowWidth > 768 ? 'full' : 'short';
-
-      getById(itemId, plotSize)
-        .then((result) => {
-          handleLoading(false);
-          handleItem(result);
-        })
-        .catch(e => {
-          handleLoading(false);
-        })
-      ;
+      getMovie(itemId, plotSize);
     }
   }
 
   render() {
-    const { item } = this.props;
+    const { movie } = this.props;
 
-    if (!item) {
+    if (!movie) {
       return null;
     }
 
     return (
       <div>
-        <img src={item.Poster} alt={item.Title} />
+        <img src={movie.Poster} alt={movie.Title} />
         <div>
-          <h1> {item.Title} </h1>
-          <p> Actors: {item.Actors} </p>
-          <p> Genres: {item.Genre} </p>
-          <p> {item.Plot} </p>
+          <h1> {movie.Title} </h1>
+          <p> Actors: {movie.Actors} </p>
+          <p> Genres: {movie.Genre} </p>
+          <p> {movie.Plot} </p>
         </div>
       </div>
     );
   }
 }
 
-const withStateLoading = withState('loading', 'handleLoading', false);
-const withStateItem = withState('item', 'handleItem', null);
 const loadingPredicate = (props) => props.loading;
 export default compose(
+  connect(
+    ({ currentMovie }) => ({
+      loading: currentMovie.loading,
+      movie: currentMovie.entity,
+    }),
+    { getMovie: load }
+  ),
   windowWidth,
-  withStateLoading,
-  withStateItem,
   loading(loadingPredicate),
   perfomanceTest,
 )(FilmInfo);
